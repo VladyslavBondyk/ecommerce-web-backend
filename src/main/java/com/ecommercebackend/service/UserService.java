@@ -7,14 +7,26 @@ import com.ecommercebackend.model.LocalUser;
 import com.ecommercebackend.model.dao.LocalUserDAO;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for handling user actions.
+ */
 @Service
 public class UserService {
 
     // When Spring loads UserService its going to create a localUserDAO & inject it into UserService method.
     private LocalUserDAO localUserDAO;
+    private EncryptionService encryptionService;
 
-    public UserService(LocalUserDAO localUserDAO) {
+    /**
+     * Constructor injected by spring.
+     *
+     * @param localUserDAO
+     * @param encryptionService
+     */
+
+    public UserService(LocalUserDAO localUserDAO, EncryptionService encryptionService) {
         this.localUserDAO = localUserDAO;
+        this.encryptionService = encryptionService;
     }
 
 
@@ -30,8 +42,7 @@ public class UserService {
         user.setFirstName(registrationBody.getFirstName());
         user.setLastName(registrationBody.getLastName());
         user.setUsername(registrationBody.getUsername());
-        //TODO: Encrypt passwords!!
-        user.setPassword(registrationBody.getPassword());
+        user.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
         return localUserDAO.save(user);
 
     }
