@@ -2,6 +2,8 @@ package com.ecommercebackend.api.controller.auth;
 
 
 //import org.springframework.web.bind.annotation.Mapping;
+import com.ecommercebackend.api.model.LoginBody;
+import com.ecommercebackend.api.model.LoginResponse;
 import com.ecommercebackend.api.model.RegistrationBody;
 import com.ecommercebackend.exception.UserAlreadyExistsException;
 import com.ecommercebackend.service.UserService;
@@ -10,17 +12,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Rest Controller for handling authentication requests.
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
 
     private UserService userService;
 
-
+    /**
+     * Spring injected constructor.
+     * @param userService
+     */
     public AuthenticationController(UserService userService) {
         this.userService = userService;
     }
 
+
+    /**
+     * Post Mapping to handle registering users.
+     * @param registrationBody The registration information.
+     * @return Response to front end.
+     */
     @PostMapping("/register")
     //Register a user
     // ResponseEntity allows us to edit HTTP response which being sent back
@@ -34,6 +48,24 @@ public class AuthenticationController {
         }
         // System.out.println(registrationBody.getUsername());  // Test & prove that we have working registerBody
 
+    }
+
+    /**
+     * Post Mapping to handle user logins to provide authentication token.
+     * @param loginBody The login information.
+     * @return The authentication token if successful.
+     */
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody) {
+        String jwt = userService.loginUser(loginBody);
+        if (jwt == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            LoginResponse response = new LoginResponse();
+            response.setJwt(jwt);
+            return ResponseEntity.ok(response);
+        }
     }
 
 }
