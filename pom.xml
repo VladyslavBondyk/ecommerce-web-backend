@@ -90,6 +90,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>MASHHH-STORE-AWS</finalName>
 	</build>
 
 </project>
