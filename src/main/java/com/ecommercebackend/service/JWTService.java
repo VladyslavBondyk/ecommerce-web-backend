@@ -12,6 +12,7 @@ import java.util.Date;
 
 /**
  * Service for handling JWTs for user authentication.
+ * Responsible for handling the encoded strings which we use ti auth users
  */
 
 @Service
@@ -46,4 +47,9 @@ public class JWTService {
                 .withIssuer(issuer)
                 .sign(algorithm);
     }
+
+    public String getUsername(String token) {
+        return JWT.decode(token).getClaim(USERNAME_KEY).asString();   //check if the token even real
+    }
+
 }

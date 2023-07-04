@@ -6,15 +6,19 @@ import com.ecommercebackend.api.model.LoginBody;
 import com.ecommercebackend.api.model.LoginResponse;
 import com.ecommercebackend.api.model.RegistrationBody;
 import com.ecommercebackend.exception.UserAlreadyExistsException;
+import com.ecommercebackend.model.LocalUser;
 import com.ecommercebackend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Rest Controller for handling authentication requests.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -67,5 +71,13 @@ public class AuthenticationController {
             return ResponseEntity.ok(response);
         }
     }
+
+    // Provide mapping for API. when u logged in u have auth-n token.
+    @GetMapping("/me")
+    public LocalUser getLoggedInUserProfile(@AuthenticationPrincipal LocalUser user) {
+        return user;
+    }
+
+
 
 }
