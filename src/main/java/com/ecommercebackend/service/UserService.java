@@ -57,7 +57,7 @@ public class UserService {
     public String loginUser(LoginBody loginBody) {
 
         Optional<LocalUser> opUser =
-                localUserDAO.findByUsernameIgnoreCase((loginBody.getUsername()));
+                localUserDAO.findByEmailIgnoreCase((loginBody.getEmail()));
         if (opUser.isPresent()) {
         LocalUser user = opUser.get();
             if (encryptionService.verifyPassword(loginBody.getPassword(), user.getPassword())) {

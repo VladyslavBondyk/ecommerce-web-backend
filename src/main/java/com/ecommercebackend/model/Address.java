@@ -1,6 +1,9 @@
 package com.ecommercebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.Optional;
 
 @Entity
 @Table(name = "address")
@@ -19,10 +22,17 @@ public class Address {
     @Column(name = "city", nullable = false)
     private String city;
 
+    @Column(name = "state", nullable = false, length = 75)
+    private String state;
+
     @Column(name = "country", nullable = false, length = 75)
     private String country;
 
-    @ManyToOne
+    @Column(name = "postal_code", nullable = false, length = 75)
+    private String postalCode;
+
+    @JsonIgnore
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private LocalUser user;
 
@@ -50,6 +60,9 @@ public class Address {
         this.city = city;
     }
 
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
+
     public String getAddressLine2() {
         return addressLine2;
     }
@@ -65,6 +78,10 @@ public class Address {
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
     }
+
+    public String setPostalCode() { return postalCode; }
+
+    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
 
     public Long getId() {
         return id;

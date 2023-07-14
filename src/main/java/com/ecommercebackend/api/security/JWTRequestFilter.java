@@ -42,8 +42,8 @@ public class JWTRequestFilter extends OncePerRequestFilter {
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {    //check if it starts with Bearer
             String token = tokenHeader.substring(7);
             try {
-                String username = jwtService.getUsername(token);    // try to decode a token
-                Optional<LocalUser> opUser = localUserDAO.findByUsernameIgnoreCase(username);   // then taking usernmae and trying to find the user
+                String email = jwtService.getEmail(token);    // try to decode a token
+                Optional<LocalUser> opUser = localUserDAO.findByEmailIgnoreCase(email);   // then taking usernmae and trying to find the user
                 if (opUser.isPresent()) {     // in case user is present.
                     LocalUser user = opUser.get();    // then we build an AUTH-N object of the user
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList());

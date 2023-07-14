@@ -1,0 +1,14 @@
+server:
+  ssl:
+    key-alias: selfsigned
+    key-store: classpath:keystore.jks
+    key-store-type: JKS
+    key-store-provider: SUN
+    key-store-password: Test123Test
+
+
+
+
+#  http.port=8080
+  port: 8443
+#  server.ssl.enabled=true

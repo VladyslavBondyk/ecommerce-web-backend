@@ -1,7 +1,5 @@
 package com.ecommercebackend.api.controller.auth;
 
-
-//import org.springframework.web.bind.annotation.Mapping;
 import com.ecommercebackend.api.model.LoginBody;
 import com.ecommercebackend.api.model.LoginResponse;
 import com.ecommercebackend.api.model.RegistrationBody;
@@ -12,7 +10,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/auth")
+@RequestMapping
 public class AuthenticationController {
 
     private UserService userService;
@@ -39,7 +36,7 @@ public class AuthenticationController {
      * @param registrationBody The registration information.
      * @return Response to front end.
      */
-    @PostMapping("/register")
+    @PostMapping("/signup")
     //Register a user
     // ResponseEntity allows us to edit HTTP response which being sent back
     // @Valid is validated email address to be written correctly.
@@ -73,7 +70,7 @@ public class AuthenticationController {
     }
 
     // Provide mapping for API. when u logged in u have auth-n token.
-    @GetMapping("/me")
+    @GetMapping("/account")
     public LocalUser getLoggedInUserProfile(@AuthenticationPrincipal LocalUser user) {
         return user;
     }

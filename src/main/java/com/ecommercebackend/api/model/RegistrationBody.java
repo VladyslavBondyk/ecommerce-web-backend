@@ -11,8 +11,6 @@ public class RegistrationBody {
 
     // Fields for registration. Align with FE reg this.
 
-    @NotNull
-    @NotBlank
     @Size(min = 3, max = 255)
     private String username;
 

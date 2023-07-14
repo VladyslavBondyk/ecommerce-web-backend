@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EncryptionService {
 
     // {ecnryption - is where we r using/group of usage. and variables
-    @Value("${encryption.salt.rounds}")    //Spring uses sort rounds
+    @Value("${encryption.salt.rounds}")    //Spring uses sort rounds/ The more rounds – more secure it is. But more rounds make it more hungry and take more resources and more time taken
     private int saltRounds;
     private String salt;
 
