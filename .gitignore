@@ -34,3 +34,8 @@ build/
 
 ###  ENV FILE  ###
 .env
+
+### CRT ###
+.src/main/resources/selfsigned.crt/
+.src/main/resources/keystore.jks/
+
