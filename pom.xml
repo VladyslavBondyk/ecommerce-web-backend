@@ -14,8 +14,7 @@
 	<name>ecommerce-backend</name>
 	<description>REST API ecomm project for Spring Boot</description>
 	<properties>
-		<java.version>20</java.version>
-		<maven.compiler.release>11</maven.compiler.release>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
