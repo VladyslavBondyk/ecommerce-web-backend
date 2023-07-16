@@ -37,3 +37,9 @@ build/
 
 ### IDEA ###
 .idea
+
+### CRT ###
+.src/main/resources/selfsigned.crt
+.src/main/resources/keystore.jks
+.src/main/resources/.env
+
