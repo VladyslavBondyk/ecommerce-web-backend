@@ -17,7 +17,7 @@ public class LocalUser {
 
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
     @JsonIgnore   //Adding json ignore to correctly authenticate user token w/o showing his encrypted pass.
@@ -78,13 +78,13 @@ public class LocalUser {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     public Long getId() { return id; }
 

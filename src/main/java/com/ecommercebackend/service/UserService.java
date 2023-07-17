@@ -40,14 +40,14 @@ public class UserService {
         // In order to avoid error msgs in server -≥
         // below if statement searching for email OR username duplicates.
         if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()
-            || localUserDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()) {
+            || localUserDAO.findByUsernameIgnoreCase(registrationBody.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
         LocalUser user = new LocalUser();
         user.setEmail(registrationBody.getEmail());
         user.setFirstName(registrationBody.getFirstName());
         user.setLastName(registrationBody.getLastName());
-        user.setUsername(registrationBody.getUsername());
+//        user.setUsername(registrationBody.getUsername());
         user.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
         return localUserDAO.save(user);
 

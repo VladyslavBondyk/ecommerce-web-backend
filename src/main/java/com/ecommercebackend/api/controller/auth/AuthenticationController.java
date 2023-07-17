@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private UserService userService;

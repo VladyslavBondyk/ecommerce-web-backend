@@ -1,18 +1,13 @@
 package com.ecommercebackend.api.model;
 
 //import jakarta.validation.constraints.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 public class RegistrationBody {
 
     // Fields for registration. Align with FE reg this.
 
-    @Size(min = 3, max = 255)
-    private String username;
+//    private String username;
 
     @NotNull
     @NotBlank
@@ -36,9 +31,9 @@ public class RegistrationBody {
     public RegistrationBody() {
     }
 
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
 
     public String getEmail() {
         return email;
