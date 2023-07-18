@@ -45,7 +45,7 @@ public class LocalUser {
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
 
-    public Boolean getEmailVerified() {
+    public Boolean isEmailVerified() {
         return emailVerified;
     }
 

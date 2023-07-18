@@ -29,7 +29,10 @@ public class WebSecurityConfig {
                 .AuthorizationManagerRequestMatcherRegistry authenticated
                 = http.authorizeHttpRequests()
                 // Specific exclusions or rules.
-                .requestMatchers("/product", "/auth/signup", "/auth/login").permitAll()
+                .requestMatchers("/", "/*", "", "/product", "/auth/signup",
+                        "/auth/login", "/auth/verify", "/auth", "/order", "/inventory",
+                        "/swagger-ui/index.html")
+                .permitAll()
                 // Everything else should be authenticated.
                 .anyRequest().authenticated();
         return http.build();
