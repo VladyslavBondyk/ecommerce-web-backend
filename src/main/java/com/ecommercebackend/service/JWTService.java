@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.ecommercebackend.model.LocalUser;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -46,6 +47,14 @@ public class JWTService {      //JSON Web Token
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * expiryInSecond)))
                 .withIssuer(issuer)
                 .sign(algorithm);
+    }
+
+    public String generateVerificationJWT(LocalUser user) {
+        return JWT.create()
+            .withClaim(EMAIL_KEY, user.getEmail())    //claim is payload
+            .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * expiryInSecond)))
+            .withIssuer(issuer)
+            .sign(algorithm);
     }
 
     public String getEmail(String token) {
