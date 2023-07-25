@@ -37,7 +37,9 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
     // everytime we get request - its going to below method
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal
+    (HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String tokenHeader = request.getHeader("Authorization");   //check if it have header called auth-n
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {    //check if it starts with Bearer
             String token = tokenHeader.substring(7);
@@ -46,7 +48,8 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                 Optional<LocalUser> opUser = localUserDAO.findByEmailIgnoreCase(email);   // then taking usernmae and trying to find the user
                 if (opUser.isPresent()) {     // in case user is present.
                     LocalUser user = opUser.get();    // then we build an AUTH-N object of the user
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList());
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(user, null, new ArrayList());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

@@ -5,12 +5,15 @@ package com.ecommercebackend.api.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.AuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @Configuration
 public class WebSecurityConfig {
 
@@ -27,15 +30,18 @@ public class WebSecurityConfig {
         http.addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
         AuthorizeHttpRequestsConfigurer<HttpSecurity>
                 .AuthorizationManagerRequestMatcherRegistry authenticated
-                = http.authorizeHttpRequests()
+                = http.authorizeHttpRequests().requestMatchers
                 // Specific exclusions or rules.
-                .requestMatchers("/", "/*", "", "/product", "/auth/signup",
-                        "/auth/login", "/auth/verify", "/auth", "/order", "/inventory",
-                        "/swagger-ui/index.html")
-                .permitAll()
+        ("/", "/*", "", "/product", "/auth/signup",
+                        "/login", "/auth/verify", "/verify", "/v2/api-docs", "/auth",
+                        "/order", "/inventory",
+                        "/swagger-ui/index.html","/swagger-ui.html",
+                        "/swagger-ui").permitAll()
                 // Everything else should be authenticated.
                 .anyRequest().authenticated();
         return http.build();
     }
+
+
 
 }
