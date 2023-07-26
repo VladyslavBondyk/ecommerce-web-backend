@@ -33,10 +33,8 @@ public class WebSecurityConfig {
                 = http.authorizeHttpRequests().requestMatchers
                 // Specific exclusions or rules.
         ("/", "/*", "", "/product", "/auth/signup",
-                        "/login", "/auth/verify", "/verify", "/v2/api-docs", "/auth",
-                        "/order", "/inventory",
-                        "/swagger-ui/index.html","/swagger-ui.html",
-                        "/swagger-ui").permitAll()
+                "/auth/verify", "/verify", "/v2/api-docs", "/auth",
+                        "/order", "/inventory").permitAll()
                 // Everything else should be authenticated.
                 .anyRequest().authenticated();
         return http.build();

@@ -109,11 +109,14 @@ public class UserService {
 
 @Transactional
     public boolean verifyUser(String token) {
+        // 1stly try to find token in DB
     Optional<VerificationToken> opToken = verificationTokenDAO.findByToken(token);
     if (opToken.isPresent()) {
+        //token taking out
         VerificationToken verificationToken = opToken.get();
         LocalUser user = verificationToken.getLocalUser();
         if (!user.isEmailVerified()) {
+            // check if user is already verified
             user.setEmailVerified(true);
             localUserDAO.save(user);
             verificationTokenDAO.deleteByLocalUser(user);
