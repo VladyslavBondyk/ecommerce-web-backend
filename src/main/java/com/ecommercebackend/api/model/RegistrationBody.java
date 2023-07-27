@@ -36,18 +36,22 @@ public class RegistrationBody {
 //    }
 
     public String getEmail() {
+
         return email;
     }
 
     public String getPassword() {
+
         return password;
     }
 
     public String getFirstName() {
+
         return firstName;
     }
 
     public String getLastName() {
+
         return lastName;
     }
 

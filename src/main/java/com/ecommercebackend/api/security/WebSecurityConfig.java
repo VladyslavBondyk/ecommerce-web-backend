@@ -25,13 +25,12 @@ public class WebSecurityConfig {
         http.csrf().disable().cors().disable();
         // We need to make sure our authentication filter is run before the http request filter is run.
         http.addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
-        AuthorizeHttpRequestsConfigurer<HttpSecurity>
-                .AuthorizationManagerRequestMatcherRegistry authenticated
-                = http.authorizeHttpRequests()
+        http.authorizeHttpRequests()
                 // Specific exclusions or rules.
-                .requestMatchers("/product", "/auth/signup", "/auth/login").permitAll()
+                .requestMatchers("/", "/product", "/auth/register", "/auth/login",
+                        "/swagger-ui", "/swagger-ui/index.html", "/index.html", "/index").permitAll()
                 // Everything else should be authenticated.
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         return http.build();
     }
 

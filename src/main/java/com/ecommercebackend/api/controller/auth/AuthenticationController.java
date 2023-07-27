@@ -37,18 +37,13 @@ public class AuthenticationController {
      * @return Response to front end.
      */
     @PostMapping("/signup")
-    //Register a user
-    // ResponseEntity allows us to edit HTTP response which being sent back
-    // @Valid is validated email address to be written correctly.
     public ResponseEntity registerUser(@Valid @RequestBody RegistrationBody registrationBody) {
         try {
-            userService.registerUser(registrationBody); // that will register user for us.
-            return ResponseEntity.ok().build(); // if we dont fail response and get ok(200command) -> build -> send
+            userService.registerUser(registrationBody);
+            return ResponseEntity.ok().build();
         } catch (UserAlreadyExistsException ex) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); //In case we fail – sent 409Conflict + build it. No server error.
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        // System.out.println(registrationBody.getUsername());  // Test & prove that we have working registerBody
-
     }
 
     /**
@@ -70,7 +65,7 @@ public class AuthenticationController {
     }
 
     // Provide mapping for API. when u logged in u have auth-n token.
-    @GetMapping("/account")
+    @GetMapping("/me")
     public LocalUser getLoggedInUserProfile(@AuthenticationPrincipal LocalUser user) {
         return user;
     }
