@@ -14,17 +14,17 @@
 ##          truststore:
 ##            certificate: "classpath:client.crt"
 #
-#            server:
-#              ssl:
-#                key-alias: self-signed
-#                key-store: classpath:keystore.jks
-#                key-store-type: JKS
-#                key-store-provider: SUN
-#                key-store-password: Test123Test
-#
-#
-#
-#
-#            #  http.port=8080
-#              port: 8443
-#            #  server.ssl.enabled=true
+            server:
+              ssl:
+                key-alias: selfsigned
+                key-store: classpath:keystore.jks
+                key-store-type: JKS
+                key-store-provider: SUN
+                key-store-password: Test123Test
+
+
+
+
+            #  http.port=8080
+              port: 8443
+            #  server.ssl.enabled=true

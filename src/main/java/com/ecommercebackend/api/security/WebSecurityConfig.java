@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 "/auth/verify", "/verify", "/v2/api-docs", "/auth",
                         "/order", "/inventory").permitAll()
                 // Everything else should be authenticated.
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         return http.build();
     }
 
