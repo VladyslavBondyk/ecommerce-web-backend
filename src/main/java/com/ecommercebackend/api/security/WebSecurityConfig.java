@@ -32,9 +32,9 @@ public class WebSecurityConfig {
                 .AuthorizationManagerRequestMatcherRegistry authenticated
                 = http.authorizeHttpRequests().requestMatchers
                 // Specific exclusions or rules.
-        ("/", "/*", "", "/product", "/auth/signup",
+        ("/", "/*", "", "/product", "/auth/signup", "/signup",
                 "/auth/verify", "/verify", "/v2/api-docs", "/auth",
-                        "/order", "/inventory").permitAll()
+                        "/order", "/inventory", "login", "/auth/login").permitAll()
                 // Everything else should be authenticated.
                 .anyRequest().permitAll();
         return http.build();
