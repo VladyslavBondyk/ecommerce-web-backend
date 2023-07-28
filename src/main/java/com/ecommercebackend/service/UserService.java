@@ -54,6 +54,8 @@ public class UserService {
     public LocalUser registerUser(RegistrationBody registrationBody) throws UserAlreadyExistsException, EmailFailureException {
         // In order to avoid error msgs in server -≥
         // below if statement searching for email OR username duplicates.
+        // USERNAME IS NOT MANDATORY FOR REGISTRATION. BUT IT WOULD BE OPTIONAL. SO
+        // SHOULD I KEEP THOSE CHECKING BY USERNAME OR NOT.
         if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()
             || localUserDAO.findByUsernameIgnoreCase(registrationBody.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException();
