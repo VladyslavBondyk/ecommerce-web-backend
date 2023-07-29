@@ -34,9 +34,10 @@ public class WebSecurityConfig {
                 // Specific exclusions or rules.
         ("/", "/*", "", "/product", "/auth/signup", "/signup",
                 "/auth/verify", "/verify", "/v2/api-docs", "/auth",
-                        "/order", "/inventory", "login", "/auth/login").permitAll()
+                        "/order", "/inventory", "login", "/auth/login",
+                "/error", "/auth/forgot", "/auth/reset").permitAll()
                 // Everything else should be authenticated.
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
         return http.build();
     }
 

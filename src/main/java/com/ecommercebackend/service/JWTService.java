@@ -3,6 +3,7 @@ package com.ecommercebackend.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ecommercebackend.model.LocalUser;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +45,7 @@ public class JWTService {      //JSON Web Token
     public String generateJWT(LocalUser user) {
         return JWT.create()
         .withClaim(EMAIL_KEY, user.getEmail())    //claim is payload
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * expiryInSecond)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000L * expiryInSecond)))
                 .withIssuer(issuer)
                 .sign(algorithm);
     }
@@ -52,13 +53,15 @@ public class JWTService {      //JSON Web Token
     public String generateVerificationJWT(LocalUser user) {
         return JWT.create()
             .withClaim(EMAIL_KEY, user.getEmail())    //claim is payload
-            .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * expiryInSecond)))
+            .withExpiresAt(new Date(System.currentTimeMillis() + (1000L * expiryInSecond)))
             .withIssuer(issuer)
             .sign(algorithm);
     }
 
     public String getEmail(String token) {
-        return JWT.decode(token).getClaim(EMAIL_KEY).asString();   //check if the token even real
+        // JWT library, I ve this algoritm, pls build be verification class which knows HT verify with such algtm and then verify this token.
+        DecodedJWT jwt = JWT.require(algorithm).withIssuer(issuer).build().verify(token);
+        return jwt.getClaim(EMAIL_KEY).asString();   //check if the token even real
     }
 
 }
