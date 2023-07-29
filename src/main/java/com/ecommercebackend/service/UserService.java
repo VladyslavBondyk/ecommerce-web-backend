@@ -17,9 +17,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service for handling user actions.
- */
+
+// Service for handling user actions.
+
 @Service
 public class UserService {
 
@@ -31,15 +31,6 @@ public class UserService {
     private JWTService jwtService;
     private EmailService emailService;
 
-    /**
-     * Constructor injected by spring.
-     *
-     * @param localUserDAO
-     * @param verificationTokenDAO
-     * @param encryptionService
-     * @param jwtService
-     * @param emailService
-     */
 
     public UserService(LocalUserDAO localUserDAO, VerificationTokenDAO verificationTokenDAO,
                        EncryptionService encryptionService, JWTService jwtService,
@@ -56,8 +47,9 @@ public class UserService {
         // below if statement searching for email OR username duplicates.
         // USERNAME IS NOT MANDATORY FOR REGISTRATION. BUT IT WOULD BE OPTIONAL. SO
         // SHOULD I KEEP THOSE CHECKING BY USERNAME OR NOT.
-        if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()
-            || localUserDAO.findByUsernameIgnoreCase(registrationBody.getEmail()).isPresent()) {
+        if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent())
+//            || localUserDAO.findByUsernameIgnoreCase(registrationBody.getEmail()).isPresent())
+            {
             throw new UserAlreadyExistsException();
         }
         LocalUser user = new LocalUser();
@@ -66,13 +58,13 @@ public class UserService {
         user.setLastName(registrationBody.getLastName());
 //        user.setUsername(registrationBody.getUsername());
         user.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
-        VerificationToken verificationToken = createerificationToken(user);
+        VerificationToken verificationToken = createverificationToken(user);
         emailService.sendVeririfcationEmail(verificationToken);
         return localUserDAO.save(user);
 
     }
 
-    private VerificationToken createerificationToken(LocalUser user) {
+    private VerificationToken createverificationToken(LocalUser user) {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(jwtService.generateVerificationJWT(user));
         verificationToken.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
@@ -98,7 +90,7 @@ public class UserService {
                             verificationTokens.get(0).getCreatedTimestamp().
                             before(new Timestamp(System.currentTimeMillis() - (60 * 60 * 1000)));
                     if (resend) {
-                        VerificationToken verificationToken = createerificationToken(user);
+                        VerificationToken verificationToken = createverificationToken(user);
                         verificationTokenDAO.save(verificationToken);
                         emailService.sendVeririfcationEmail(verificationToken);
                     }

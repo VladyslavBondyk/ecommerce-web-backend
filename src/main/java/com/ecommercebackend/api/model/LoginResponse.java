@@ -19,11 +19,11 @@ public class LoginResponse {
         this.success = success;
     }
 
-    public String getFailreReason() {
+    public String getFailureReason() {
         return failreReason;
     }
 
-    public void setFailreReason(String failreReason) {
+    public void setFailureReason(String failureReason) {
         this.failreReason = failreReason;
     }
 

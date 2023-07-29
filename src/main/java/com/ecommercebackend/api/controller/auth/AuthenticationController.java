@@ -73,7 +73,7 @@ public class AuthenticationController {
             if (ex.isNewEmailSent()){
                 reason += "_EMAIL_RESENT";
             }
-            response.setFailreReason(reason);
+            response.setFailureReason(reason);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
         } catch (EmailFailureException ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

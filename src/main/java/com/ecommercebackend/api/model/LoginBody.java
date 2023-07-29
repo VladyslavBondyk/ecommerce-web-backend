@@ -12,11 +12,14 @@ public class LoginBody {
     @NotBlank
     private String password;
 
-    public String getEmail() {
-        return email;
-    }
+    @org.jetbrains.annotations.NotNull
+    public String getEmail() { return email; }
 
-    public String getPassword() {
-        return password;
-    }
+    public void setEmail(@org.jetbrains.annotations.NotNull String email) { this.email = email; }
+
+    @org.jetbrains.annotations.NotNull
+    public String getPassword() { return password; }
+
+    public void setPassword(@org.jetbrains.annotations.NotNull String password) { this.password = password; }
+
 }

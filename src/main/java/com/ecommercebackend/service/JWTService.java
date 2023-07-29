@@ -11,31 +11,31 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-/**
- * Service for handling JWTs for user authentication.
- * Responsible for handling the encoded strings which we use ti auth users
- */
+
+//  Service for handling JWTs for user authentication.
+//  Responsible for handling the encoded strings which we use ti auth users
+
 
 @Service
 public class JWTService {      //JSON Web Token
 
-    /** The secret key to encrypt the JWTs with. */
+//    The secret key to encrypt the JWTs with.
     @Value("${jwt.algorithm.key}")
     private String algorithmKey;
-    /** The issuer the JWT is signed with. */
+//    The issuer the JWT is signed with.
     @Value("${jwt.issuer}")
     private String issuer;
-    /** How many seconds from generation should the JWT expire? */
+//    How many seconds from generation should the JWT expire?
     @Value("${jwt.expiryInSeconds}")
     private int expiryInSecond;
-    /** The algorithm generated post construction. */
+//     The algorithm generated post construction.
     private Algorithm algorithm;
-    /** The JWT claim key for the username. */
+//     The JWT claim key for the username
     private static final String EMAIL_KEY = "EMAIL";
 
-    /**
-     * Post construction method.
-     */
+
+//     Post construction method.
+
     @PostConstruct
     public void postConstruct() {
     algorithm = Algorithm.HMAC256(algorithmKey);

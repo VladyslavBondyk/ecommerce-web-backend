@@ -7,7 +7,7 @@ public class RegistrationBody {
 
     // Fields for registration. Align with FE reg this.
 
-//    private String username;
+    private String username;
 
     @NotNull
     @NotBlank

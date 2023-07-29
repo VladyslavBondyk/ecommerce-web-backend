@@ -17,8 +17,8 @@ public class LocalUser {
 
     private Long id;
 
-    @Column(name = "username", unique = true)
-    private String username;
+//    @Column(name = "username", unique = true)
+//    private String username;
 
     @JsonIgnore   //Adding json ignore to correctly authenticate user token w/o showing his encrypted pass.
     @Column(name = "password", nullable = false, length = 1000)
