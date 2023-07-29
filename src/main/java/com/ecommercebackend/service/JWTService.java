@@ -32,7 +32,8 @@ public class JWTService {      //JSON Web Token
 //     The algorithm generated post construction.
     private Algorithm algorithm;
 //     The JWT claim key for the username
-    private static final String EMAIL_KEY = "EMAIL";
+    private static final String VERIFICATION_EMAIL_KEY = "VERIFICATION_EMAIL";
+    private static final String RESET_PASSWORD_EMAIL_KEY = "RESET_PASSWORD_EMAIL";
 
 
 //     Post construction method.
@@ -44,7 +45,7 @@ public class JWTService {      //JSON Web Token
 
     public String generateJWT(LocalUser user) {
         return JWT.create()
-        .withClaim(EMAIL_KEY, user.getEmail())    //claim is payload
+        .withClaim(VERIFICATION_EMAIL_KEY, user.getEmail())    //claim is payload
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000L * expiryInSecond)))
                 .withIssuer(issuer)
                 .sign(algorithm);
@@ -52,16 +53,30 @@ public class JWTService {      //JSON Web Token
 
     public String generateVerificationJWT(LocalUser user) {
         return JWT.create()
-            .withClaim(EMAIL_KEY, user.getEmail())    //claim is payload
+            .withClaim(VERIFICATION_EMAIL_KEY, user.getEmail())    //claim is payload
             .withExpiresAt(new Date(System.currentTimeMillis() + (1000L * expiryInSecond)))
             .withIssuer(issuer)
             .sign(algorithm);
     }
 
+    public String generatePasswordResetJWT(LocalUser user) {
+        return JWT.create()
+                .withClaim(RESET_PASSWORD_EMAIL_KEY, user.getEmail())    //claim is payload
+                //1s + 1min + 30min limit for a user to reset a password
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
+                .withIssuer(issuer)
+                .sign(algorithm);
+    }
+
+        public String getResetPasswordEmail(String token) {
+            DecodedJWT jwt = JWT.require(algorithm).withIssuer(issuer).build().verify(token);
+            return jwt.getClaim(RESET_PASSWORD_EMAIL_KEY).asString();
+        }
+
     public String getEmail(String token) {
         // JWT library, I ve this algoritm, pls build be verification class which knows HT verify with such algtm and then verify this token.
         DecodedJWT jwt = JWT.require(algorithm).withIssuer(issuer).build().verify(token);
-        return jwt.getClaim(EMAIL_KEY).asString();   //check if the token even real
+        return jwt.getClaim(VERIFICATION_EMAIL_KEY).asString();   //check if the token even real
     }
 
 }
