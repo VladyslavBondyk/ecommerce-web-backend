@@ -14,6 +14,7 @@ public class EcommerceBackendApplication {
 //		return "Welcome to AWS";
 //	}
 	public static void main(String[] args) {
+
 		SpringApplication.run(EcommerceBackendApplication.class, args);
 	}
 
