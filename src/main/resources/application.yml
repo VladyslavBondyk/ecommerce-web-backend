@@ -26,5 +26,5 @@
 
 
             #  http.port=8080
-              port: 5000
+#              port: 8443
 #              server.ssl.enabled=true

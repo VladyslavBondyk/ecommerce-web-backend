@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                         "/order", "/inventory", "login", "/auth/login",
                 "/error", "/auth/forgot", "/auth/reset").permitAll()
                 // Everything else should be authenticated.
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
         return http.build();
     }
 

@@ -79,7 +79,7 @@ public class Address {
         this.addressLine1 = addressLine1;
     }
 
-    public String setPostalCode() { return postalCode; }
+    public String getPostalCode() { return postalCode; }
 
     public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
 
