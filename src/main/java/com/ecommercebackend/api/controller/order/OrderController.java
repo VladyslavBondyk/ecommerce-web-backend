@@ -18,11 +18,13 @@ public class OrderController {
     private OrderService orderService;
 
     public OrderController(OrderService orderService) {
+
         this.orderService = orderService;
     }
 
     @GetMapping
-    public List<WebOrder> getOrder(@AuthenticationPrincipal LocalUser user) {
+    public List<WebOrder> getOrder(
+            @AuthenticationPrincipal LocalUser user) {
         return orderService.getOrders(user);
     }
 }

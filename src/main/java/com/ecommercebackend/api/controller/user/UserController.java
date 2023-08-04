@@ -3,6 +3,7 @@ package com.ecommercebackend.api.controller.user;
 import com.ecommercebackend.model.Address;
 import com.ecommercebackend.model.LocalUser;
 import com.ecommercebackend.model.dao.AddressDAO;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +26,7 @@ public class UserController {
     }
 // adding a property in curly braces
     @GetMapping("/{userId}/address")
-
+    @Operation(summary = "Get the user's address")
     public ResponseEntity<List<Address>> getAddress(
            @AuthenticationPrincipal LocalUser user, @PathVariable Long userId) {
         if (!userHasPermission(user, userId)){
@@ -35,6 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}/address")
+    @Operation(summary = "Add new address to the user")
     public ResponseEntity<Address> putAddress (
             @AuthenticationPrincipal LocalUser user, @PathVariable Long userId,
             @RequestBody Address address) {
@@ -55,6 +57,7 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}/address/{addressId}")
+    @Operation(summary = "Change the data in choosen address")
     public ResponseEntity<Address> patchAddress(
             @AuthenticationPrincipal LocalUser user, @PathVariable Long userId,
             @PathVariable Long addressId, @RequestBody Address address) {

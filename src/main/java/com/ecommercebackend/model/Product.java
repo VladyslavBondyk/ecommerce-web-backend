@@ -22,7 +22,12 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE, optional = false, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToOne(mappedBy = "product", cascade =
+            CascadeType.REMOVE, optional = false, orphanRemoval = true)
     private Inventory inventory;
 
     public Inventory getInventory() {
@@ -73,4 +78,11 @@ public class Product {
         this.id = id;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
