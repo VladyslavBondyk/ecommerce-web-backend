@@ -2,11 +2,14 @@ package com.ecommercebackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class EcommerceBackendApplication {
 
-//	@GetMapping("/")
+	//	@GetMapping("/")
 //	public String home () {
 //		return "Welcome to AWS";
 //	}
@@ -15,6 +18,17 @@ public class EcommerceBackendApplication {
 		SpringApplication.run(EcommerceBackendApplication.class, args);
 	}
 
+	@Bean
+	public WebMvcConfigurer corsConfig() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**");
+			}
+		};
+	}
+
+}
 //	@Bean
 //	public ServletWebServerFactory servletContainer() {
 //		// Enable SSL Trafic
@@ -51,7 +65,3 @@ redirected to HTTPS on 8443.
 //		connector.setRedirectPort(8443);
 //		return connector;
 //	}
-
-
-
-}
