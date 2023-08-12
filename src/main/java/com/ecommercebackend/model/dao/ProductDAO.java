@@ -12,4 +12,11 @@ public interface ProductDAO extends ListCrudRepository<Product, Long> {
     Page<Product> findAllBy(Pageable pageable);
 
     List<Product> findByCategory(Category category);
+
+    //byMyOwn
+    List<Product> findByPopular(boolean popular);
+
+    List<Product> findBySeasonNovelties(boolean seasonNovelties);
+
+    List<Product> findByPopularAndSeasonNovelties(boolean popular, boolean seasonNovelties);
 }

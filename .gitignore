@@ -39,3 +39,6 @@ build/
 .src/main/resources/selfsigned.crt/
 .src/main/resources/keystore.jks/
 
+### Application conf ###
+.src/main.resources/application.properties
+

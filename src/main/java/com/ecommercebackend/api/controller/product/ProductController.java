@@ -32,17 +32,36 @@ public class ProductController {
     @PostMapping("/")
     @Operation(summary = "Add product")
     public ResponseEntity<String> addProduct(@RequestBody Product product) {
+
         try {
-            Category category = categoryService.getCategoryById(product.getCategory().getId());
+            Long categoryId = product.getCategory().getId();
+            Category category = categoryService.getCategoryById(categoryId);
+
+            if (category == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Category with ID " + categoryId + " not found");
+            }
+
             product.setCategory(category);
             productService.addProduct(product);
             return ResponseEntity.ok("Product is added");
-        } catch (NoSuchElementException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add product: " + ex.getMessage());
         }
+
+
+//        try {
+//            Category category = categoryService.getCategoryById(product.getCategory().getId());
+//            product.setCategory(category);
+//            productService.addProduct(product);
+//            return ResponseEntity.ok("Product is added");
+//        } catch (NoSuchElementException ex) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Failed to add product: " + ex.getMessage());
+//        }
     }
 
     @GetMapping("/{id}")
@@ -55,11 +74,8 @@ public class ProductController {
 
     @GetMapping("/")
     @Operation(summary = "Get all products")
-    public PageModel<Product> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productService.getAllProducts(pageable);
+    public List<Product> getProducts() {
+        return productService.getProducts();
     }
 
     @PutMapping("/{id}")
@@ -91,4 +107,23 @@ public class ProductController {
                     .body("Не вдалося видалити продукт: " + e.getMessage());
         }
     }
+
+
+
+    @GetMapping
+    public List<Product> getProducts(
+            @RequestParam(name = "popular", required = false) Boolean popular,
+            @RequestParam(name = "seasonNovelties", required = false) Boolean seasonNovelties)
+    {
+        if (Boolean.TRUE.equals(popular) && Boolean.TRUE.equals(seasonNovelties)) {
+            return productService.getPopularAndSeasonNovelties();
+        } else if (Boolean.TRUE.equals(popular)) {
+            return productService.getPopularProducts();
+        } else if (Boolean.TRUE.equals(seasonNovelties)) {
+            return productService.getSeasonNovelties();
+        } else {
+            return productService.getProducts();
+        }
+    }
+
 }

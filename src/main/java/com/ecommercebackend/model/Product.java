@@ -22,6 +22,28 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
+    // ####### Popular column updating START
+    @Column(name = "popular", nullable = false)
+    private  boolean popular = false;
+
+    public boolean isPopular() { return popular; }
+
+    public void setPopular(boolean popular) { this.popular = popular; }
+
+    // ####### Popular column updating END
+
+
+    @Column(name = "season_novelties", nullable = false)
+    boolean seasonNovelties = false;
+
+    public boolean isSeasonNovelties() {
+        return seasonNovelties;
+    }
+
+    public void setSeasonNovelties(boolean seasonNovelties) {
+        this.seasonNovelties = seasonNovelties;
+    }
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -29,6 +51,7 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade =
             CascadeType.REMOVE, optional = false, orphanRemoval = true)
     private Inventory inventory;
+
 
     public Inventory getInventory() {
         return inventory;
@@ -85,4 +108,7 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+
+
 }

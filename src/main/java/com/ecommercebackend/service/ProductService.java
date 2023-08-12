@@ -5,6 +5,7 @@ import com.ecommercebackend.model.Category;
 import com.ecommercebackend.model.PageModel;
 import com.ecommercebackend.model.Product;
 import com.ecommercebackend.model.dao.ProductDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -64,4 +65,22 @@ public class ProductService {
     public List<Product> getProducts() {
         return productDAO.findAll();
     }
+
+
+
+
+    public List<Product> getPopularProducts() {
+        return productDAO.findByPopular(true);
+    }
+    public List<Product> getSeasonNovelties() {
+        return productDAO.findBySeasonNovelties(true);
+    }
+    public List<Product> getPopularAndSeasonNovelties() {
+        return productDAO.findByPopularAndSeasonNovelties(true, true);
+    }
+
+
+
+
+
 }
